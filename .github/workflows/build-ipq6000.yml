@@ -62,11 +62,11 @@ jobs:
         cd openwrt
         git clone https://github.com/nixonli/ddns-scripts_dnspod.git package/ddns-scripts_dnspod
         
-    - name: Import external feeds - mosdns
-      working-directory: ./openwrt
-      run: |
-        git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
-        git clone https://github.com/sbwml/v2ray-geodata package/geodata
+#    - name: Import external feeds - mosdns
+#      working-directory: ./openwrt
+#      run: |
+#        git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
+#        git clone https://github.com/sbwml/v2ray-geodata package/geodata
         
     - name: Import external feeds - theme-argonne
       working-directory: ./openwrt
