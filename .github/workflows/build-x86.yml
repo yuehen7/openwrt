@@ -6,7 +6,7 @@
 # Youtube Channel: https://goo.gl/fvkdwm 
 #=================================================
 
-name: ipq6000
+name: x86
 on: 
   repository_dispatch:
   workflow_dispatch:
@@ -67,12 +67,7 @@ jobs:
       run: |
         echo 'src-git kenzo https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
         echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
-        
-    - name: Import external feeds - theme-argonne
-      working-directory: ./openwrt
-      run: |
-        git clone https://github.com/kenzok78/luci-theme-argonne.git package/luci-theme-argonne         
-                
+                        
     - name: Update & Install feeds
       working-directory: ./openwrt
       run: |
