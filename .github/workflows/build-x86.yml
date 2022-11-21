@@ -52,8 +52,8 @@ jobs:
 
     - name: Clone source code
       env: 
-        REPO_URL: https://github.com/sdf8057/ipq6000.git
-        REPO_BRANCH: main
+        REPO_URL: https://github.com/coolsnowwolf/lede.git
+        REPO_BRANCH: master
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         
@@ -62,36 +62,34 @@ jobs:
         cd openwrt
         git clone https://github.com/nixonli/ddns-scripts_dnspod.git package/ddns-scripts_dnspod
         
-#    - name: Import external feeds - mosdns
-#      working-directory: ./openwrt
-#      run: |
-#        git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
-#        git clone https://github.com/sbwml/v2ray-geodata package/geodata
+    - name: Import external feeds - Packages
+      working-directory: ./openwrt
+      run: |
+        echo 'src-git kenzo https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
+        echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
         
     - name: Import external feeds - theme-argonne
       working-directory: ./openwrt
       run: |
         git clone https://github.com/kenzok78/luci-theme-argonne.git package/luci-theme-argonne         
-        
-    - name: Update path
-      run: |
-        cd openwrt        
-        cat target/linux/ipq60xx/files-4.4/arch/arm64/boot/dts/qcom/qcom-ipq6000-cpu-opp.dtsi
-        echo "cpu freq"    
-        
+                
     - name: Update & Install feeds
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
+        
         pushd feeds/packages/lang
         rm -fr golang && svn co https://github.com/openwrt/packages/trunk/lang/golang
         popd
+        
+        sed -i 's/luci-theme-bootstrap/luci-theme-argonne/g' feeds/luci/collections/luci/Makefile
+        
         ./scripts/feeds install -a
         ./scripts/feeds install -a
         
-    - name: Configuration AX18
+    - name: Configuration X86
       env:
-        CONFIG_FILE: '.config'
+        CONFIG_FILE: 'x86_config'
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
