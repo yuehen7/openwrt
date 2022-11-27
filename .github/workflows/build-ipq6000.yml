@@ -65,7 +65,12 @@ jobs:
     - name: Import external feeds - theme-argonne
       working-directory: ./openwrt
       run: |
-        git clone https://github.com/kenzok78/luci-theme-argonne.git package/luci-theme-argonne         
+        git clone https://github.com/kenzok78/luci-theme-argonne.git package/luci-theme-argonne        
+        
+    - name: Import external feeds - homeproxy
+      working-directory: ./openwrt
+      run: |
+        git clone https://https://github.com/immortalwrt/homeproxy.git package/homeproxy      
         
     - name: Update path
       run: |
