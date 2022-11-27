@@ -70,7 +70,7 @@ jobs:
     - name: Import external feeds - homeproxy
       working-directory: ./openwrt
       run: |
-        git clone https://https://github.com/immortalwrt/homeproxy.git package/homeproxy      
+        git clone https://github.com/immortalwrt/homeproxy.git package/homeproxy      
         
     - name: Update path
       run: |
